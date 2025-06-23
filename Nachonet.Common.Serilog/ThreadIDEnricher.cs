@@ -7,8 +7,17 @@ namespace Nachonet.Common.Serilog
     {
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
-            logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty(
-              "ThreadID", Thread.CurrentThread.Name ?? Thread.CurrentThread.ManagedThreadId.ToString()));
+            logEvent.AddPropertyIfAbsent(
+                propertyFactory.CreateProperty("ThreadID", GetThreadId())
+            );
+        }
+
+        private string GetThreadId()
+        {
+            if (Thread.CurrentThread.Name == null)
+                return Environment.CurrentManagedThreadId.ToString();
+            else
+                return string.Format("{0}/{1}", Environment.CurrentManagedThreadId.ToString(), Thread.CurrentThread.Name);
         }
     }
 }
