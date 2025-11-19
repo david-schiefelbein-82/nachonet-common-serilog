@@ -1,5 +1,5 @@
 @setlocal
-@set VER=8.0.0.3
+@set VER=10.0.0.1
 pushd Nachonet.Common.Serilog
 dotnet pack /p:AssemblyVersion=%VER% /p:Version=%VER%
 
